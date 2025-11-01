@@ -1,0 +1,15 @@
+{
+  "selectCity": "Select a City",
+  "london": "London",
+  "toronto": "Toronto",
+  "singapore": "Singapore",
+  "currentTemp": "Current",
+  "minTemp": "Min",
+  "maxTemp": "Max",
+  "hourlyForecast": "Hourly Forecast",
+  "feelsLike": "Feels like",
+  "humidity": "Humidity",
+  "windSpeed": "Wind Speed",
+  "loading": "Loading weather data...",
+  "error": "Unable to load weather data"
+}

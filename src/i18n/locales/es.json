@@ -1,0 +1,15 @@
+{
+  "selectCity": "Selecciona una Ciudad",
+  "london": "Londres",
+  "toronto": "Toronto",
+  "singapore": "Singapur",
+  "currentTemp": "Actual",
+  "minTemp": "Mín",
+  "maxTemp": "Máx",
+  "hourlyForecast": "Pronóstico por Horas",
+  "feelsLike": "Sensación térmica",
+  "humidity": "Humedad",
+  "windSpeed": "Velocidad del Viento",
+  "loading": "Cargando datos meteorológicos...",
+  "error": "No se pudieron cargar los datos meteorológicos"
+}
