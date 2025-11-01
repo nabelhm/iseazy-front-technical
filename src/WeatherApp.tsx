@@ -1,10 +1,16 @@
-import { useTranslation } from 'react-i18next';
 import { Cloud } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { CitySelector } from './components/CitySelector';
 import { LanguageToggle } from './components/LanguageToggle';
+import { WeatherDisplay } from './components/WeatherDisplay';
+import { useCity } from './hooks/useCity';
+import { useWeather } from './hooks/useWeather';
 
 export const WeatherApp = () => {
   const { t } = useTranslation();
+  const { selectedCity } = useCity();
+  
+  const { data, isLoading, error } = useWeather();
 
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-50 via-sky-50 to-cyan-50">
@@ -21,6 +27,26 @@ export const WeatherApp = () => {
 
         <main className="max-w-6xl mx-auto">
           <CitySelector />
+          
+          <div className="text-center mb-4">
+            <p className="text-lg text-muted-foreground">
+              {selectedCity.name}
+            </p>
+          </div>
+          
+          <WeatherDisplay 
+            data={data ?? null}
+            loading={isLoading} 
+            error={!!error}
+          />
+          
+          {error && (
+            <div className="mt-4 p-4 bg-destructive/10 border border-destructive rounded-lg">
+              <p className="text-destructive font-medium">
+                {error.message}
+              </p>
+            </div>
+          )}
         </main>
       </div>
     </div>

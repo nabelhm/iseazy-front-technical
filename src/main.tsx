@@ -1,14 +1,21 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import './i18n/config';
-import { WeatherApp } from './WeatherApp'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 import { CityProvider } from './context/CityProvider';
+import './i18n/config';
+import './index.css';
+import { WeatherApp } from './WeatherApp';
 
+const queryClient = new QueryClient();
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <CityProvider>
-      <WeatherApp />
-    </CityProvider>
+
+    <QueryClientProvider client={queryClient}>
+      <CityProvider>
+        <WeatherApp />
+      </CityProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   </StrictMode>,
 )
