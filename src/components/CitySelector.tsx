@@ -1,29 +1,23 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from './ui/button';
+import { useCity } from '../hooks/useCity';
+import { CITIES } from '../constants/cities';
 
-interface CitySelectorProps {
-  selectedCity: string;
-  onCityChange: (city: string) => void;
-}
-
-const cities = [
-  { id: 'London', coords: { lat: 51.5074, lon: -0.1278 } },
-  { id: 'Toronto', coords: { lat: 43.6532, lon: -79.3832 } },
-  { id: 'Singapore', coords: { lat: 1.3521, lon: 103.8198 } }
-];
-
-export const CitySelector = ({ selectedCity, onCityChange }: CitySelectorProps) => {
+export const CitySelector = () => {
   const { t } = useTranslation();
+  const { selectedCity, setSelectedCity } = useCity();
 
   return (
     <div className="flex flex-col items-center gap-4 mb-8">
-      <h2 className="text-lg font-medium text-muted-foreground">{t('selectCity')}</h2>
+      <h2 className="text-lg font-medium text-muted-foreground">
+        {t('selectCity')}
+      </h2>
       <div className="flex gap-3 flex-wrap justify-center">
-        {cities.map((city) => (
+        {CITIES.map((city) => (
           <Button
             key={city.id}
-            variant={selectedCity === city.id ? 'default' : 'outline'}
-            onClick={() => onCityChange(city.id)}
+            variant={selectedCity.id === city.id ? 'default' : 'outline'}
+            onClick={() => setSelectedCity(city)}
             className="min-w-[120px] transition-all"
           >
             {t(city.id.toLowerCase())}
@@ -33,5 +27,3 @@ export const CitySelector = ({ selectedCity, onCityChange }: CitySelectorProps) 
     </div>
   );
 };
-
-export { cities };
