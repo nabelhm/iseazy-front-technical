@@ -12,5 +12,12 @@
   "humidity": "Humidity",
   "windSpeed": "Wind Speed",
   "loading": "Loading weather data...",
-  "error": "Unable to load weather data"
+  "error": "Unable to load weather data",
+  "retry": "Try again",
+  "API_KEY_MISSING": "VITE_OPENWEATHER_API_KEY is not defined. Please add it to your .env file.",
+  "API_KEY_INVALID": "Invalid API key. Please check your VITE_OPENWEATHER_API_KEY.",
+  "LOCATION_NOT_FOUND": "Location not found.",
+  "RATE_LIMIT": "Too many requests. Please try again later.",
+  "NETWORK_ERROR": "Network error. Please check your connection.",
+  "UNKNOWN_ERROR": "An unexpected error occurred. Please try again."
 }

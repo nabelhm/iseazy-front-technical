@@ -25,4 +25,4 @@ export const getCityById = (cityId: string): City | undefined => {
   return CITIES.find((city) => city.id === cityId);
 };
 
-export const CITY_IDS = CITIES.map((city) => city.id);
+export const CITY_IDS = CITIES.map((city) => city.id) as string[];

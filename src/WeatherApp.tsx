@@ -5,15 +5,15 @@ import { LanguageToggle } from './components/LanguageToggle';
 import { WeatherDisplay } from './components/WeatherDisplay';
 import { useCity } from './hooks/useCity';
 import { useWeather } from './hooks/useWeather';
+import { ErrorMessage } from './components/ErrorMessage';
 
 export const WeatherApp = () => {
   const { t } = useTranslation();
   const { selectedCity } = useCity();
-  
-  const { data, isLoading, error } = useWeather();
+  const { data, isLoading, error, refetch } = useWeather();
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 via-sky-50 to-cyan-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-sky-50 to-cyan-50">
       <div className="container mx-auto px-4 py-8">
         <header className="flex justify-between items-center mb-12">
           <div className="flex items-center gap-3">
@@ -39,14 +39,8 @@ export const WeatherApp = () => {
             loading={isLoading} 
             error={!!error}
           />
-          
-          {error && (
-            <div className="mt-4 p-4 bg-destructive/10 border border-destructive rounded-lg">
-              <p className="text-destructive font-medium">
-                {error.message}
-              </p>
-            </div>
-          )}
+
+          {error && <ErrorMessage error={error} refetch={refetch} />}
         </main>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import type { ForecastResponse, ForecastQueryParams } from '../types/weather';
+import { HTTP_STATUS, WeatherAPIError } from '../constants/errors';
 
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/forecast';
@@ -7,9 +8,7 @@ export async function getWeatherForecast(
   params: ForecastQueryParams
 ): Promise<ForecastResponse> {
   if (!API_KEY) {
-    throw new Error(
-      'VITE_OPENWEATHER_API_KEY is not defined. Please add it to your .env file.'
-    );
+    throw new WeatherAPIError('API_KEY_MISSING');
   }
 
   const { lat, lon, lang = 'en', units = 'metric', cnt } = params;
@@ -29,27 +28,33 @@ export async function getWeatherForecast(
     const response = await fetch(url.toString());
 
     if (!response.ok) {
-      if (response.status === 401) {
-        throw new Error('Invalid API key. Please check your VITE_OPENWEATHER_API_KEY.');
+      switch (response.status) {
+        case HTTP_STATUS.UNAUTHORIZED:
+          throw new WeatherAPIError('API_KEY_INVALID', HTTP_STATUS.UNAUTHORIZED);
+        case HTTP_STATUS.NOT_FOUND:
+          throw new WeatherAPIError('LOCATION_NOT_FOUND', HTTP_STATUS.NOT_FOUND);
+        case HTTP_STATUS.TOO_MANY_REQUESTS:
+          throw new WeatherAPIError('RATE_LIMIT', HTTP_STATUS.TOO_MANY_REQUESTS);
+        default:
+          throw new WeatherAPIError('UNKNOWN_ERROR', response.status);
       }
-      if (response.status === 404) {
-        throw new Error('Location not found.');
-      }
-      if (response.status === 429) {
-        throw new Error('Too many requests. Please try again later.');
-      }
-      throw new Error(`Weather API error: ${response.status} ${response.statusText}`);
     }
 
     const data: ForecastResponse = await response.json();
     return data;
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Failed to fetch weather forecast: ${error.message}`);
+    if (error instanceof WeatherAPIError) {
+      throw error;
     }
-    throw new Error('Failed to fetch weather forecast: Unknown error');
+
+    if (error instanceof TypeError) {
+  throw new WeatherAPIError('NETWORK_ERROR', undefined, error);
+    }
+
+  throw new WeatherAPIError('UNKNOWN_ERROR', undefined, error);
   }
 }
+
 export function getTodayForecasts(forecast: ForecastResponse) {
   const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
   return forecast.list.filter((item) => item.dt_txt.startsWith(today));
@@ -59,7 +64,7 @@ export function groupForecastsByDay(forecast: ForecastResponse) {
   const grouped = new Map<string, typeof forecast.list>();
   
   for (const item of forecast.list) {
-    const date = item.dt_txt.split(' ')[0]; // Extraer YYYY-MM-DD
+    const date = item.dt_txt.split(' ')[0];
     const existing = grouped.get(date) || [];
     grouped.set(date, [...existing, item]);
   }

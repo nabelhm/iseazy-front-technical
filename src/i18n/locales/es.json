@@ -12,5 +12,12 @@
   "humidity": "Humedad",
   "windSpeed": "Velocidad del Viento",
   "loading": "Cargando datos meteorológicos...",
-  "error": "No se pudieron cargar los datos meteorológicos"
+  "error": "No se pudieron cargar los datos meteorológicos",
+  "retry": "Inténtalo de nuevo",
+  "API_KEY_MISSING": "VITE_OPENWEATHER_API_KEY no está definido. Por favor, añádelo a tu archivo .env.",
+  "API_KEY_INVALID": "Clave API inválida. Por favor, revisa tu VITE_OPENWEATHER_API_KEY.",
+  "LOCATION_NOT_FOUND": "Ubicación no encontrada.",
+  "RATE_LIMIT": "Demasiadas solicitudes. Por favor, inténtalo de nuevo más tarde.",
+  "NETWORK_ERROR": "Error de red. Por favor, revisa tu conexión.",
+  "UNKNOWN_ERROR": "Ha ocurrido un error inesperado. Por favor, inténtalo de nuevo."
 }
