@@ -203,10 +203,10 @@ npm run test
 ### Estructura del Test
 ```typescript
 describe('CitySelector', () => {
-  it('should render all three cities', () => { ... });
-  it('should have London selected by default', () => { ... });
-  it('should change selected city when clicked', () => { ... });
-  it('should display select city label', () => { ... });
+  it('should render all three city buttons', () => { ... });
+  it('should render the select city label', () => { ... });
+  it('should allow clicking on city buttons without errors', () => { ... });
+  it('should keep buttons in document after clicking', () => { ... });
 });
 ```
 
