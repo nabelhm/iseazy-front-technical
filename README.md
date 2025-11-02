@@ -61,7 +61,10 @@ src/
 ├── components/
 │   ├── CitySelector.tsx        # Selector de ciudades
 │   ├── LanguageToggle.tsx      # Toggle de idioma
-│   ├── WeatherDisplay.tsx      # Visualización del clima
+│   ├── WeatherDisplay.tsx      # Componente contenedor de visualización del clima
+│   ├── CurrentWeatherCard.tsx  # Tarjeta con el clima actual
+│   ├── HourlyForecastList.tsx  # Lista de pronóstico por horas
+│   ├── HourlyForecastCard.tsx  # Tarjeta individual de pronóstico por hora
 │   ├── ErrorMessage.tsx        # Visualización de errores
 │   └── ui/                     # Componentes base (shadcn/ui)
 ├── constants/
